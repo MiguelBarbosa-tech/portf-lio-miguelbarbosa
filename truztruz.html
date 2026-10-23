@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coleção de Natal 2025 - Truz Truz Surpresa — Detalhes do Projeto</title>
+    <style>
+        /* ==========================================
+           1. RESET DE ESTILOS BASE
+           ========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #0b0b0b;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+            position: relative;
+            transition: filter 0.3s ease;
+        }
+
+        /* Classe para desfocar o fundo quando o lightbox está aberto */
+        body.lightbox-active > *:not(.lightbox-modal) {
+            filter: blur(8px);
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* ==========================================
+           2. PAINEL SUPERIOR (HERO BANNER)
+           ========================================== */
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            height: 65vh; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 60px;
+        }
+
+        .hero-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1; 
+            opacity: 0.35; 
+        }
+
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(11, 11, 11, 0) 40%, rgba(11, 11, 11, 1) 100%);
+            z-index: 2; 
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+        }
+
+        .back-link {
+            color: #cccccc; 
+            text-decoration: none; 
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: #ffdd00;
+        }
+
+        .project-header span {
+            color: #ffdd00; 
+            font-size: 0.95rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .project-header h1 {
+            font-size: 4.5rem; 
+            margin-top: 10px; 
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: #ffffff;
+        }
+
+        /* ==========================================
+           3. CONTEÚDO PRINCIPAL E SECÇÃO "SOBRE"
+           ========================================== */
+        .main-content {
+            padding: 20px 60px 80px 60px;
+            width: 100%;
+        }
+
+        .about-section {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+            width: 100%;
+            max-width: none;
+            margin-bottom: 80px;
+            align-items: start;
+        }
+
+        .project-meta {
+            display: grid;
+            grid-template-columns: repeat(3, auto);
+            gap: 40px; 
+            padding-top: 5px;
+            width: fit-content; 
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            text-align: left;
+        }
+
+        .meta-item:not(:first-child):before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 10px;
+            width: 1px;
+            height: 35px;
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .meta-label {
+            color: #777777;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .meta-value {
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .about-text {
+            justify-self: end;
+            width: 100%;
+            max-width: 550px;
+            text-align: left; 
+        }
+
+        .about-text h2 {
+            font-size: 1.6rem; 
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .about-text p {
+            color: #aaaaaa; 
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #777777;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 10px;
+            text-align: center;
+        }
+        
+        /* ==========================================
+           4. GRELHAS DE MULTIMÉDIA (VÍDEOS E FOTOS)
+           ========================================== */
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
+            gap: 30px;
+            margin-bottom: 60px;
+            justify-content: center; 
+        }
+
+        .portfolio-video {
+            width: 100%;
+            aspect-ratio: 9 / 16;
+            object-fit: cover;
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+        .portfolio-video:hover {
+            border-color: #ffdd00;
+        }
+
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+            justify-content: center;
+        }
+
+        .portfolio-img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;  
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: transform 0.3s ease, border-color 0.3s ease; 
+            cursor: pointer;
+        }
+
+        .portfolio-img:hover {
+            transform: scale(1.02);
+            border-color: #ffdd00;
+        }
+
+        /* ==========================================
+           5. LIGHTBOX / PRÉ-VISUALIZAÇÃO DAS FOTOS
+           ========================================== */
+        .lightbox-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .lightbox-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 85vw;
+            max-height: 85vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-image {
+            max-width: 85vw;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 6px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .lightbox-btn {
+            position: absolute;
+            background-color: #151515;
+            color: #ffdd00;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+            z-index: 10001;
+            border-radius: 50%;
+        }
+
+        .lightbox-btn:hover {
+            background-color: #ffdd00;
+            color: #000000;
+            transform: scale(1.08);
+        }
+
+        .lightbox-prev {
+            left: -70px;
+            width: 50px;
+            height: 50px;
+        }
+
+        .lightbox-next {
+            right: -70px;
+            width: 50px;
+            height: 50px;
+        }
+
+        .lightbox-close {
+            top: 25px;
+            right: 35px;
+            width: 45px;
+            height: 45px;
+            font-size: 1.8rem;
+        }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #888888;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* ==========================================
+           6. RODAPÉ DE TRANSIÇÃO (PRÓXIMO PROJETO)
+           ========================================== */
+        .next-project-footer-clean {
+            width: 100%;
+            padding: 100px 0;
+            background-color: #0b0b0b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: 80px;
+        }
+
+        .next-project-link-clean {
+            text-decoration: none;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer-subtitle-clean {
+            color: #777777;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .footer-title-clean {
+            color: #ffffff; /* Texto branco por defeito */
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-title-clean.hovered {
+            color: #ffdd00; /* Fica amarelo apenas no hover da seta */
+        }
+
+        .arrow-circle-clean {
+            width: 50px;
+            height: 50px;
+            background-color: #151515;
+            color: #ffdd00;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .arrow-icon-clean {
+            font-size: 1.3rem;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .arrow-circle-clean:hover {
+            transform: scale(1.1);
+            background-color: #ffdd00;
+            color: #000000;
+        }
+
+        /* ==========================================
+           7. BOTÃO FIXO "VOLTAR AO TOPO"
+           ========================================== */
+        .back-to-top {
+            position: fixed;
+            bottom: 35px;
+            right: 35px;
+            width: 50px;
+            height: 50px;
+            background-color: #151515;
+            color: #ffdd00;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: #ffdd00;
+            color: #000000;
+            transform: translateY(-3px);
+        }
+
+        /* ==========================================
+           8. RESPONSIVIDADE (TELEMÓVEIS E TABLETS)
+           ========================================== */
+        @media (max-width: 768px) {
+            .hero-banner {
+                padding: 30px;
+                height: 50vh;
+            }
+            .project-header h1 {
+                font-size: 3rem;
+            }
+            .main-content {
+                padding: 20px 20px 60px 20px;
+            }
+            .about-section {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .about-text {
+                text-align: left;
+            }
+            .project-meta {
+                grid-template-columns: 1fr;
+            }
+            .meta-item {
+                text-align: left;
+            }
+            .meta-item:not(:first-child):before {
+                display: none;
+            }
+            
+            .media-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            .portfolio-img {
+                height: 180px; 
+            }
+
+            .footer-title-clean {
+                font-size: 2rem;
+            }
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .lightbox-prev {
+                left: 10px;
+            }
+            .lightbox-next {
+                right: 10px;
+            }
+            .lightbox-close {
+                top: 15px;
+                right: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SECÇÃO DO TOPO (HERO) -->
+    <div class="hero-banner" id="topo">
+        <img src="t7.jpg" alt="Capa Truz Truz Surpresa" class="hero-bg-image">
+
+        <div class="hero-content">
+            <a href="index.html" class="back-link">← Página Inicial</a>
+        </div>
+
+        <header class="project-header hero-content">
+            <span>Freelance</span>
+            <h1>Coleção de Natal 2025 - Truz Truz Surpresa</h1>
+        </header>
+    </div>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+        
+        <!-- SECÇÃO SOBRE E METADADOS -->
+        <section class="about-section">
+            <div class="project-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Cliente</span>
+                    <span class="meta-value">Truz Truz Surpresa</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Áreas</span>
+                    <span class="meta-value">Vídeo | Fotografia</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Ano</span>
+                    <span class="meta-value">2025</span>
+                </div>
+            </div>
+
+            <div class="about-text">
+                <h2>Sobre o Projeto</h2>
+                <p>Fui responsável pela captação e produção de conteúdos fotográficos e audiovisuais da montra de Natal da TruzTruzSurpresa. Através de fotografia e vídeo, dei destaque aos produtos sazonais, às novidades e aos detalhes das decorações, explorando a composição das imagens para valorizar o trabalho da marca e criar conteúdos visuais apelativos para as redes sociais.</p>
+            </div>
+        </section>
+
+        <!-- VÍDEOS -->
+        <h3 class="section-title">Vídeos</h3>
+        <section class="videos-grid">
+            <video class="portfolio-video" autoplay muted loop playsinline controls>
+                <source src="video coleção de natal.mp4" type="video/mp4">
+            </video>
+            <video class="portfolio-video" autoplay muted loop playsinline controls>
+                <source src="Video produtos.mp4" type="video/mp4">
+            </video>
+        </section>
+
+        <!-- FOTOGRAFIAS -->
+        <h3 class="section-title">Fotografias</h3>
+        <section class="media-grid" id="galleryGrid">
+            <img src="t1.jpg" alt="Foto 1" class="portfolio-img">
+            <img src="t2.jpg" alt="Foto 2" class="portfolio-img">
+            <img src="t3.jpg" alt="Foto 3" class="portfolio-img">
+            <img src="t4.jpg" alt="Foto 4" class="portfolio-img">
+            <img src="t5.jpg" alt="Foto 5" class="portfolio-img">
+            <img src="t6.jpg" alt="Foto 6" class="portfolio-img">
+            <img src="t7.jpg" alt="Foto 7" class="portfolio-img">
+            <img src="t8.jpg" alt="Foto 8" class="portfolio-img">
+            <img src="t9.jpg" alt="Foto 9" class="portfolio-img">
+            <img src="t10.jpg" alt="Foto 10" class="portfolio-img">
+            <img src="t11.jpg" alt="Foto 11" class="portfolio-img">
+            <img src="t12.jpg" alt="Foto 12" class="portfolio-img">
+            <img src="t13.jpg" alt="Foto 13" class="portfolio-img">
+            <img src="t14.jpg" alt="Foto 14" class="portfolio-img">
+            <img src="t15.jpg" alt="Foto 15" class="portfolio-img">
+            <img src="t16.jpg" alt="Foto 16" class="portfolio-img">
+            <img src="t17.jpg" alt="Foto 17" class="portfolio-img">
+            <img src="t18.jpg" alt="Foto 18" class="portfolio-img">
+            <img src="t19.jpg" alt="Foto 19" class="portfolio-img">
+            <img src="t20.jpg" alt="Foto 20" class="portfolio-img">
+            <img src="t21.jpg" alt="Foto 21" class="portfolio-img">
+            <img src="t22.jpg" alt="Foto 22" class="portfolio-img">
+            <img src="t23.jpg" alt="Foto 23" class="portfolio-img">
+            <img src="t24.jpg" alt="Foto 24" class="portfolio-img">
+            <img src="t25.jpg" alt="Foto 25" class="portfolio-img">
+            <img src="t26.jpg" alt="Foto 26" class="portfolio-img">
+            <img src="t27.jpg" alt="Foto 27" class="portfolio-img">
+            <img src="t28.jpg" alt="Foto 28" class="portfolio-img">
+            <img src="t29.jpg" alt="Foto 29" class="portfolio-img">
+            <img src="t30.jpg" alt="Foto 30" class="portfolio-img">
+            <img src="t31.jpg" alt="Foto 31" class="portfolio-img">
+            <img src="t32.jpg" alt="Foto 32" class="portfolio-img">
+            <img src="t33.jpg" alt="Foto 33" class="portfolio-img">
+            <img src="t34.jpg" alt="Foto 34" class="portfolio-img">
+            <img src="t35.jpg" alt="Foto 35" class="portfolio-img">
+            <img src="t36.jpg" alt="Foto 36" class="portfolio-img">
+            <img src="t37.jpg" alt="Foto 37" class="portfolio-img">
+            <img src="t38.jpg" alt="Foto 38" class="portfolio-img">
+        </section>
+        
+    </main>
+    
+    <!-- RODAPÉ DE TRANSIÇÃO (TEXTO EM CIMA, BOTÃO EMBAIXO) -->
+    <footer class="next-project-footer-clean">
+        <a href="cakus.html" class="next-project-link-clean">
+            <span class="footer-subtitle-clean">PRÓXIMO PROJETO</span>
+            <h2 class="footer-title-clean" id="footerTitle">Cakus</h2>
+            <div class="arrow-circle-clean" id="arrowCircle">
+                <span class="arrow-icon-clean">→</span>
+            </div>
+        </a>
+    </footer>
+
+    <!-- BOTÃO FIXO "VOLTAR AO TOPO" -->
+    <a href="#topo" class="back-to-top" id="backToTopBtn">↑</a>
+
+    <!-- JANELA LIGHTBOX (MODAL DE PRÉ-VISUALIZAÇÃO) -->
+    <div class="lightbox-modal" id="lightboxModal">
+        <button class="lightbox-btn lightbox-close" id="lightboxClose" title="Fechar">×</button>
+        <div class="lightbox-content">
+            <button class="lightbox-btn lightbox-prev" id="lightboxPrev" title="Foto Anterior">&#10094;</button>
+            <img src="" alt="Pré-visualização" class="lightbox-image" id="lightboxImage">
+            <button class="lightbox-btn lightbox-next" id="lightboxNext" title="Próxima Foto">&#10095;</button>
+            <div class="lightbox-counter" id="lightboxCounter">1 / 1</div>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE FUNCIONALIDADE -->
+    <script>
+        // 1. Botão "Voltar ao Topo"
+        const backToTopButton = document.getElementById('backToTopBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+
+        // 2. Efeito hover direcionado para o título quando o rato passa na seta
+        const arrowCircle = document.getElementById('arrowCircle');
+        const footerTitle = document.getElementById('footerTitle');
+
+        arrowCircle.addEventListener('mouseenter', () => {
+            footerTitle.classList.add('hovered');
+        });
+
+        arrowCircle.addEventListener('mouseleave', () => {
+            footerTitle.classList.remove('hovered');
+        });
+
+        // 3. Sistema de Lightbox / Galeria
+        const galleryImages = document.querySelectorAll('.portfolio-img');
+        const lightboxModal = document.getElementById('lightboxModal');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+        const lightboxCounter = document.getElementById('lightboxCounter');
+
+        let currentIndex = 0;
+        const imagesArray = Array.from(galleryImages);
+
+        function openLightbox(index) {
+            currentIndex = index;
+            updateLightboxImage();
+            lightboxModal.classList.add('active');
+            document.body.classList.add('lightbox-active');
+        }
+
+        function closeLightbox() {
+            lightboxModal.classList.remove('active');
+            document.body.classList.remove('lightbox-active');
+        }
+
+        function updateLightboxImage() {
+            const currentImg = imagesArray[currentIndex];
+            lightboxImage.src = currentImg.src;
+            lightboxImage.alt = currentImg.alt;
+            lightboxCounter.textContent = `${currentIndex + 1} / ${imagesArray.length}`;
+        }
+
+        function showNextImage(e) {
+            if (e) e.stopPropagation();
+            currentIndex = (currentIndex + 1) % imagesArray.length;
+            updateLightboxImage();
+        }
+
+        function showPrevImage(e) {
+            if (e) e.stopPropagation();
+            currentIndex = (currentIndex - 1 + imagesArray.length) % imagesArray.length;
+            updateLightboxImage();
+        }
+
+        imagesArray.forEach((img, index) => {
+            img.addEventListener('click', () => openLightbox(index));
+        });
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxNext.addEventListener('click', showNextImage);
+        lightboxPrev.addEventListener('click', showPrevImage);
+
+        lightboxModal.addEventListener('click', (e) => {
+            if (e.target === lightboxModal) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!lightboxModal.classList.contains('active')) return;
+
+            if (e.key === 'Escape') {
+                closeLightbox();
+            } else if (e.key === 'ArrowRight') {
+                showNextImage();
+            } else if (e.key === 'ArrowLeft') {
+                showPrevImage();
+            }
+        });
+    </script>
+
+</body>
+</html>

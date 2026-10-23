@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio — Miguel Barbosa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #0b0b0b;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* CONTAINER CANVAS ONDAS */
+        .hero-waves-container {
+            position: absolute;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            height: 550px;
+            z-index: -1;
+            overflow: hidden;
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+        }
+
+        #wavesCanvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            filter: blur(8px);
+        }
+
+        /* NAVBAR - CORRIGIDO O PADDING PARA 25px 60px (IGUAL AO SOBRE) */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 60px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(11, 11, 11, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo-reveal-box {
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+            max-width: 220px;
+            z-index: 1003;
+        }
+
+        .logo-reveal-box .logo-text {
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            font-size: 1rem;
+            color: #ffffff;
+            white-space: nowrap;
+        }
+
+        .navbar nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .navbar nav a {
+            color: #777777;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        /* LINHA BRANCA EM BAIXO NO HOVER/ACTIVE */
+        .navbar nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #ffffff;
+            transition: width 0.3s ease;
+        }
+
+        .navbar nav a:hover::after, .navbar nav a.active::after {
+            width: 100%;
+        }
+
+        .navbar nav a:hover, .navbar nav a.active {
+            color: #ffdd00;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 20px;
+            z-index: 1002;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        /* ANIMAÇÕES REVEAL */
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        /* HERO */
+        .hero {
+            padding: 180px 80px 40px 80px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+            text-align: left;
+        }
+
+        .hero h1 {
+            font-size: 5.2rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -2px;
+        }
+
+        .serif-normal { font-family: serif; font-weight: 400; }
+        .italic-serif { font-family: serif; font-style: italic; font-weight: 400; }
+
+        .typing-hero-wrapper {
+            display: inline-block;
+        }
+
+        #typing-hero {
+            border-right: 3px solid #ffffff;
+            padding-right: 4px;
+            animation: blinkCursorHero 0.8s infinite step-end;
+        }
+
+        @keyframes blinkCursorHero {
+            0%, 100% { border-color: transparent; }
+            50% { border-color: #ffffff; }
+        }
+
+        /* ESTATÍSTICAS */
+        .stats-section {
+            padding: 40px 80px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-header-title {
+            font-size: 1.9rem;
+            font-weight: 400;
+            margin-bottom: 30px;
+            font-family: serif;
+            text-align: left;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            width: 100%;
+            max-width: 1300px;
+        }
+
+        .stat-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 15%;
+            height: 70%;
+            width: 1px;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: #b0b0b0;
+            text-transform: lowercase;
+            margin-bottom: 12px;
+        }
+
+        .stat-number {
+            font-size: 3.8rem;
+            font-weight: 400;
+            color: #ffffff;
+            letter-spacing: -1px;
+        }
+
+        /* TOP VÍDEOS */
+        .top-videos-section {
+            padding: 40px 80px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .top-videos-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .video-card {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .video-thumb-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 9/16;
+            background-color: #1a1a1a;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .video-element {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-info {
+            padding-top: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .video-info h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .video-views {
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .videos-summary-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .videos-summary-panel {
+            background: #121212;
+            border: 1px solid #ffdd00;
+            border-radius: 12px;
+            padding: 22px 35px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 80px;
+        }
+
+        .summary-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .summary-label {
+            font-size: 0.8rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* PROJETOS & FILTROS */
+        .projects-section-title-wrapper {
+            width: 100%;
+            padding: 40px 80px 0 80px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 35px;
+            padding: 10px 80px 20px 80px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 40px;
+            overflow-x: auto;
+        }
+
+        .filter-btn {
+            background: none;
+            border: none;
+            color: #666666;
+            font-size: 1rem;
+            cursor: pointer;
+            padding-bottom: 15px;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            color: #ffdd00;
+        }
+
+        .filter-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #ffffff;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            padding: 0 80px 80px 80px;
+            width: 100%;
+        }
+
+        .project-card {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            background: #121212;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-6px);
+            border-color: #ffdd00;
+            box-shadow: 0 15px 35px rgba(255, 221, 0, 0.15);
+        }
+
+        .project-image-wrapper {
+            overflow: hidden;
+            width: 100%;
+            aspect-ratio: 16/10;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.04);
+        }
+
+        .project-info {
+            padding: 22px;
+        }
+
+        .project-info .category {
+            color: #777;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .project-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+
+        .project-info .tag {
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        /* FOOTER */
+        .footer-cta {
+            padding: 100px 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background-color: #0b0b0b;
+        }
+
+        .footer-cta h2 {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .footer-cta p {
+            color: #888888;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .btn-about {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .btn-about:hover {
+            transform: translateY(-2px);
+            background-color: #ffdd00;
+            color: #000000;
+            box-shadow: 0 10px 30px rgba(255, 221, 0, 0.3);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            background-color: #1a1a1a;
+            color: #ffdd00;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+            z-index: 9999;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: #ffdd00;
+            color: #000000;
+            transform: translateY(-3px);
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 1200px) {
+            .portfolio-grid, .top-videos-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 900px) {
+            .navbar { padding: 20px 25px; }
+            .navbar nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background-color: rgba(11, 11, 11, 0.98);
+                flex-direction: column;
+                justify-content: center;
+                transition: right 0.4s ease;
+                left: auto;
+                transform: none;
+            }
+            .navbar nav.active { right: 0; }
+            .menu-toggle { display: flex; }
+            .portfolio-grid, .top-videos-grid { grid-template-columns: 1fr; padding: 20px; }
+            .hero, .stats-section, .top-videos-section, .projects-section-title-wrapper, .filters, .footer-cta {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            .hero h1 { font-size: 2.8rem; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 30px 0; }
+            .stat-item:not(:last-child)::after { display: none; }
+        }
+    </style>
+</head>
+<body id="topo">
+
+    <div class="hero-waves-container">
+        <canvas id="wavesCanvas"></canvas>
+    </div>
+
+    <header class="navbar">
+        <div class="logo-reveal-box">
+            <span class="logo-text">MIGUEL BARBOSA</span>
+        </div>
+        
+        <nav id="navMenu">
+            <a href="index.html" class="active">Portfólio</a>
+            <a href="sobre.html">Sobre</a>
+        </nav>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <section class="hero reveal">
+        <h1>
+            <span class="serif-normal">Ideias que</span><br>
+            <span class="italic-serif">ganham</span><br>
+            <span class="italic-serif typing-hero-wrapper"><span id="typing-hero"></span></span>
+        </h1>
+    </section>
+
+    <!-- SECÇÃO "EM NÚMEROS" -->
+    <section class="stats-section reveal delay-1">
+        <h3 class="section-header-title">Destaques</h3>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-label">clientes trabalhados</div>
+                <div class="stat-number" data-target="40" data-prefix="+">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">trabalhos entregues</div>
+                <div class="stat-number" data-target="160" data-prefix="+">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">anos de experiencia</div>
+                <div class="stat-number" data-target="2" data-prefix="">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">visualizações globais</div>
+                <div class="stat-number" data-target="500" data-prefix="+" data-suffix="K">0</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECÇÃO TOP 4 VÍDEOS -->
+    <section class="top-videos-section reveal delay-2">
+        <h3 class="section-header-title">Top 4 Vídeos Mais Vistos</h3>
+        
+        <div class="top-videos-grid">
+            <a href="EsposendeComedySessions.html" class="video-card">
+                <div class="video-thumb-wrapper">
+                    <video class="video-element" autoplay muted loop playsinline>
+                        <source src="video comedy2.mp4" type="video/mp4">
+                        O teu browser não suporta vídeo.
+                    </video>
+                </div>
+                <div class="video-info">
+                    <h4>Vídeo de Comediante | Esposende Comedy Sessions</h4>
+                    <span class="video-views">👁 72,5K visualizações</span>
+                </div>
+            </a>
+
+            <a href="IMMUNE.html" class="video-card">
+                <div class="video-thumb-wrapper">
+                    <video class="video-element" autoplay muted loop playsinline>
+                        <source src="Video IMMUNE11.mp4" type="video/mp4">
+                        O teu browser não suporta vídeo.
+                    </video>
+                </div>
+                <div class="video-info">
+                    <h4>Air Yoga | IMMUNE</h4>
+                    <span class="video-views">👁 54,8K visualizações</span>
+                </div>
+            </a>
+
+            <a href="dessta.html" class="video-card">
+                <div class="video-thumb-wrapper">
+                    <video class="video-element" autoplay muted loop playsinline>
+                        <source src="animação3d dessta.mp4" type="video/mp4">
+                        O teu browser não suporta vídeo.
+                    </video>
+                </div>
+                <div class="video-info">
+                    <h4>Animação 3D Banner | Dessta</h4>
+                    <span class="video-views">👁 37,7K visualizações</span>
+                </div>
+            </a>
+
+            <a href="cakus.html" class="video-card">
+                <div class="video-thumb-wrapper">
+                    <video class="video-element" autoplay muted loop playsinline>
+                        <source src="Video workshop pintura.mp4" type="video/mp4">
+                        O teu browser não suporta vídeo.
+                    </video>
+                </div>
+                <div class="video-info">
+                    <h4>Workshop de Pintura | Cakus</h4>
+                    <span class="video-views">👁️ 33,1K visualizações</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="videos-summary-wrapper">
+            <div class="videos-summary-panel">
+                <div class="summary-item">
+                    <span class="summary-value" style="font-size: 1.5rem; font-weight: 700;">4</span>
+                    <span class="summary-label">Vídeos em Destaque</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-value" style="font-size: 1.5rem; font-weight: 700;">198,1K</span>
+                    <span class="summary-label">Visualizações Totais</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJETOS SELECIONADOS -->
+    <div id="projetos" class="projects-section-title-wrapper reveal delay-3">
+        <h3 class="section-header-title">Projetos Selecionados</h3>
+    </div>
+
+    <section class="filters reveal delay-3">
+        <button class="filter-btn active" data-filter="todos">Todos</button>
+        <button class="filter-btn" data-filter="motion">Motion Design</button>
+        <button class="filter-btn" data-filter="videos">Vídeos</button>
+        <button class="filter-btn" data-filter="design">Design</button>
+        <button class="filter-btn" data-filter="fotografia">Fotografias</button>
+        <button class="filter-btn" data-filter="animacao">Animação 3D</button>
+    </section>
+
+    <main class="portfolio-grid">
+        <a href="dgostar.html" class="project-card reveal delay-1" data-category="videos design fotografia">
+            <div class="project-image-wrapper">
+                <img src="projeto1.jpg" alt="D'GOSTAR" class="project-image">
+            </div>
+            <div class="project-info">
+                <span class="category">Freelance</span>
+                <h3>D'GOSTAR</h3>
+                <p class="tag">Vídeo | Design | Fotografia</p>
+            </div>
+        </a>
+
+        <a href="dessta.html" class="project-card reveal delay-2" data-category="motion animacao">
+            <div class="project-image-wrapper">
+                <img src="projeto2.png" alt="Dessta" class="project-image">
+            </div>
+            <div class="project-info">
+                <span class="category">Estágio na Dessta</span>
+                <h3>"Design Station" </h3>
+                <h3>to "Dessta"</h3>
+
+                <p class="tag">Motion Design | Animação 3D</p>
+            </div>
+        </a>
+
+        <a href="EsposendeComedySessions.html" class="project-card reveal delay-3" data-category="videos fotografia">
+            <div class="project-image-wrapper">
+                <img src="projeto6.jpg" alt="Esposende Comedy Sessions" class="project-image">
+            </div>
+            <div class="project-info">
+                <span class="category">Freelance</span>
+                <h3>Esposende Comedy</h3>
+                <h3> Session 4</h3>
+                <p class="tag">Vídeo | Fotografia</p>
+            </div>
+        </a>
+
+        <a href="momentos_Comedy.html" class="project-card reveal delay-3" data-category="videos animacao">
+            <div class="project-image-wrapper">
+                <img src="esposende comedy 4.jpg" alt="Esposende Comedy Sessions" class="project-image">
+            </div>
+            <div class="project-info">
+                <span class="category">Freelance</span>
+                <h3>Vídeos Promocionais</h3>
+                <p class="tag">Vídeo | Animação 3D</p>
+            </div>
+        </a>
+
+        <a href="truztruz.html" class="project-card reveal delay-3" data-category="videos fotografia">
+            <div class="project-image-wrapper">
+                <img src="t7.jpg" alt="Coleção de Natal" class="project-image">
+            </div>
+            <div class="project-info">
+                <span class="category">Freelance</span>
+                <h3>Coleção de Natal 2025 - Truz Truz Surpresa</h3>
+                <p class="tag">Vídeo | Fotografia</p>
+            </div>
+        </a>
+
+        <a href="cakus.html" class="project-card reveal delay-3" data-category="videos motion">
+            <div class="project-image-wrapper">
+                <img src="foto cakus.png" alt="Cakus" class="project-image">
+            </div>
+            <div class="project-info">
+                <span class="category">Estágio na Dessta</span>
+                <h3>Cakus</h3>
+                <p class="tag">Vídeo | Motion Design</p>
+            </div>
+        </a>
+
+        <a href="vergadela.html" class="project-card reveal delay-3" data-category="videos">
+            <div class="project-image-wrapper">
+                <img src="foto vergadela.png" alt="Vergardela" class="project-image">
+            </div>
+            <div class="project-info">
+                <span class="category">Estágio na Dessta</span>
+                <h3>25 anos da Vergadela</h3>
+                <p class="tag">Vídeo</p>
+            </div>
+        </a>
+        
+        <a href="IMMUNE.html" class="project-card reveal delay-3" data-category="videos">
+            <div class="project-image-wrapper">
+                <img src="foto immune.png" alt="IMMUNE" class="project-image">
+            </div>
+            <div class="project-info">
+                <span class="category">Estágio na Dessta</span>
+                <h3>IMMUNE</h3>
+                <p class="tag">Vídeo</p>
+            </div>
+        </a>
+
+        <a href="adn.html" class="project-card reveal delay-3" data-category="motion">
+            <div class="project-image-wrapper">
+                <img src="projeto3.png" alt="adn" class="project-image">
+            </div>
+            <div class="project-info">
+                <span class="category">Estágio na adn Digital Partner</span>
+                <h3>adn Digital Partner</h3>
+                <p class="tag">Motion Design</p>
+            </div>
+        </a>
+
+        <a href="InBruto.html" class="project-card reveal delay-3" data-category="motion">
+            <div class="project-image-wrapper">
+                <img src="InBruto.jpg" alt="InBruto" class="project-image">
+            </div>
+            <div class="project-info">
+                <span class="category">Estágio na adn Digital Partner</span>
+                <h3>InBruto</h3>
+                <p class="tag">Motion Design</p>
+            </div>
+        </a>
+
+        <a href="O_Influente.html" class="project-card reveal delay-3" data-category="motion">
+            <div class="project-image-wrapper">
+                <img src="OInfluente.JPG" alt="OInfluente" class="project-image">
+            </div>
+            <div class="project-info">
+                <span class="category">Estágio na adn Digital Partner</span>
+                <h3>O Influente</h3>
+                <p class="tag">Motion Design</p>
+            </div>
+        </a>
+
+        <a href="Uniprint.html" class="project-card reveal delay-3" data-category="motion">
+            <div class="project-image-wrapper">
+                <img src="p6.png" alt="Uniprint" class="project-image">
+            </div>
+            <div class="project-info">
+                <span class="category">Estágio na adn Digital Partner</span>
+                <h3>Uniprint</h3>
+                <p class="tag">Motion Design</p>
+            </div>
+        </a>
+    </main>
+
+    <!-- SECÇÃO FINAL CTA -->
+    <footer class="footer-cta">
+        <div class="footer-cta-content">
+            <h2>Conhece-me melhor</h2>
+            <p>Descobre quem sou, o que faço e as ferramentas que utilizo.</p>
+            <div>
+                <a href="sobre.html" class="btn-about">
+                    Sobre mim 
+                    <span style="font-size: 1.2rem; line-height: 1;">→</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#topo" class="back-to-top" id="backToTopBtn">↑</a>
+
+    <script>
+        // Menu Mobile Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            menuToggle.classList.toggle('open');
+        });
+
+        document.querySelectorAll('#navMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                menuToggle.classList.remove('open');
+            });
+        });
+
+        // Canvas Waves Background
+        const canvas = document.getElementById('wavesCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        let step = 0;
+
+        function drawWaves() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const waves = [
+                { speed: 0.015, height: 45, frequency: 0.003, yOffset: 0.35, alpha: 0.6 },
+                { speed: -0.02,  height: 60, frequency: 0.0025, yOffset: 0.5,  alpha: 0.8 },
+                { speed: 0.012, height: 35, frequency: 0.004, yOffset: 0.65, alpha: 0.5 }
+            ];
+
+            waves.forEach(wave => {
+                ctx.beginPath();
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = `rgba(240, 240, 240, ${wave.alpha})`;
+
+                for (let x = 0; x <= canvas.width; x += 5) {
+                    let y = canvas.height * wave.yOffset + 
+                            Math.sin(x * wave.frequency + step * wave.speed) * wave.height + 
+                            Math.cos(x * 0.0015 - step * (wave.speed * 0.5)) * 20;
+                    
+                    if (x === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                }
+                ctx.stroke();
+            });
+
+            step += 1;
+            requestAnimationFrame(drawWaves);
+        }
+
+        drawWaves();
+
+        // Hero Typewriter Effect
+        let currentWordIndex = 0;
+        let charIndex = 0;
+        const rawWords = ["movimento.", "vida.", "forma."];
+
+        function typeWriter() {
+            if (charIndex < rawWords[currentWordIndex].length) {
+                document.getElementById('typing-hero').innerHTML = `<span style="color: #ffdd00;">${rawWords[currentWordIndex].substring(0, charIndex + 1)}</span>`;
+                charIndex++;
+                setTimeout(typeWriter, 85);
+            } else {
+                setTimeout(deleteWriter, 1600);
+            }
+        }
+
+        function deleteWriter() {
+            if (charIndex > 0) {
+                document.getElementById('typing-hero').innerHTML = `<span style="color: #ffdd00;">${rawWords[currentWordIndex].substring(0, charIndex - 1)}</span>`;
+                charIndex--;
+                setTimeout(deleteWriter, 45);
+            } else {
+                currentWordIndex = (currentWordIndex + 1) % rawWords.length;
+                setTimeout(typeWriter, 400);
+            }
+        }
+
+        setTimeout(typeWriter, 600);
+
+        // Animação de Contagem dos Números ("Em Números")
+        const statsSection = document.querySelector('.stats-section');
+        const statNumbers = document.querySelectorAll('.stat-number');
+        let statsAnimated = false;
+
+        function runCounter() {
+            statNumbers.forEach(num => {
+                const target = +num.getAttribute('data-target');
+                const prefix = num.getAttribute('data-prefix') || '';
+                const suffix = num.getAttribute('data-suffix') || '';
+                let current = 0;
+                const increment = target / 40; 
+
+                const updateCount = () => {
+                    current += increment;
+                    if (current < target) {
+                        num.innerText = prefix + Math.ceil(current) + suffix;
+                        setTimeout(updateCount, 30);
+                    } else {
+                        num.innerText = prefix + target + suffix;
+                    }
+                };
+
+                updateCount();
+            });
+        }
+
+        const statsObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !statsAnimated) {
+                    statsAnimated = true;
+                    runCounter();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // Filtros do Portfólio
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                const filterValue = button.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    const cardCategories = card.getAttribute('data-category');
+                    if (filterValue === 'todos' || (cardCategories && cardCategories.includes(filterValue))) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Botão Voltar ao Topo e Animação Reveal ao fazer Scroll
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        const revealElements = document.querySelectorAll('.reveal');
+
+        function checkScroll() {
+            if (window.scrollY > 400) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight * 0.85;
+                if (elementTop < windowHeight) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
+    </script>
+</body>
+</html>

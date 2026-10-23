@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>adn — Detalhes do Projeto</title>
+    <style>
+        /* ==========================================
+           1. RESET DE ESTILOS BASE
+           ========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #0b0b0b;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ==========================================
+           2. PAINEL SUPERIOR (HERO BANNER)
+           ========================================== */
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            height: 65vh; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 60px;
+        }
+
+        .hero-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1; 
+            opacity: 0.35; 
+        }
+
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(11, 11, 11, 0) 40%, rgba(11, 11, 11, 1) 100%);
+            z-index: 2; 
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+        }
+
+        .back-link {
+            color: #cccccc; 
+            text-decoration: none; 
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: #ffdd00;
+        }
+
+        .project-header span {
+            color: #ffdd00; 
+            font-size: 0.95rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .project-header h1 {
+            font-size: 4.5rem; 
+            margin-top: 10px; 
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: #ffffff;
+        }
+
+        /* ==========================================
+           3. CONTEÚDO PRINCIPAL E SECÇÃO "SOBRE"
+           ========================================== */
+        .main-content {
+            padding: 20px 60px 80px 60px;
+            width: 100%;
+        }
+
+        .about-section {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+            width: 100%;
+            max-width: none;
+            margin-bottom: 80px;
+            align-items: start;
+        }
+
+        .project-meta {
+            display: grid;
+            grid-template-columns: repeat(3, auto);
+            gap: 40px;
+            padding-top: 5px;
+            width: fit-content;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            text-align: left;
+        }
+
+        .meta-item:not(:first-child):before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 10px;
+            width: 1px;
+            height: 35px;
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .meta-label {
+            color: #777777;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .meta-value {
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .about-text {
+            justify-self: end;
+            width: 100%;
+            max-width: 550px;
+            text-align: left;
+        }
+
+        .about-text h2 {
+            font-size: 1.6rem; 
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .about-text p {
+            color: #aaaaaa; 
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 35px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #777777;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 10px;
+            text-align: center;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* ==========================================
+           4. GRELHA DE REELS (IMAGENS + BOTÕES CENTRADOS)
+           ========================================== */
+        .reels-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px 30px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .reel-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .reel-image {
+            width: 100%;
+            aspect-ratio: 9 / 16;
+            object-fit: cover;
+            background-color: #141414;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .reel-image:hover {
+            transform: translateY(-5px);
+            border-color: #ffdd00;
+        }
+
+        /* BOTÃO "VER PROJETO" */
+        .btn-view-project {
+            display: inline-block;
+            padding: 12px 28px;
+            background-color: #151515;
+            color: #ffdd00;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+
+        .btn-view-project:hover {
+            background-color: #ffdd00;
+            color: #000000;
+            border-color: #ffdd00;
+            transform: scale(1.08);
+        }
+
+        /* ==========================================
+           5. RODAPÉ DE TRANSIÇÃO (PRÓXIMO PROJETO)
+           ========================================== */
+        .next-project-footer-clean {
+            width: 100%;
+            padding: 100px 0;
+            background-color: #0b0b0b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: 80px;
+        }
+
+        .next-project-link-clean {
+            text-decoration: none;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer-subtitle-clean {
+            color: #777777;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .footer-title-clean {
+            color: #ffffff; /* Texto branco por defeito */
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-title-clean.hovered {
+            color: #ffdd00; /* Fica amarelo apenas no hover da seta */
+        }
+
+        .arrow-circle-clean {
+            width: 50px;
+            height: 50px;
+            background-color: #151515;
+            color: #ffdd00;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .arrow-icon-clean {
+            font-size: 1.3rem;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .arrow-circle-clean:hover {
+            transform: scale(1.1);
+            background-color: #ffdd00;
+            color: #000000;
+        }
+
+        /* ==========================================
+           6. BOTÃO FIXO "VOLTAR AO TOPO"
+           ========================================== */
+        .back-to-top {
+            position: fixed;
+            bottom: 35px;
+            right: 35px;
+            width: 50px;
+            height: 50px;
+            background-color: #151515;
+            color: #ffdd00;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: #ffdd00;
+            color: #000000;
+            transform: translateY(-3px);
+        }
+
+        /* ==========================================
+           7. RESPONSIVIDADE (TELEMÓVEIS E TABLETS)
+           ========================================== */
+        @media (max-width: 900px) {
+            .reels-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-banner {
+                padding: 30px;
+                height: 50vh;
+            }
+            .project-header h1 {
+                font-size: 3rem;
+            }
+            .main-content {
+                padding: 20px 20px 60px 20px;
+            }
+            .about-section {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .about-text {
+                text-align: left;
+            }
+            .project-meta {
+                grid-template-columns: 1fr;
+            }
+            .meta-item {
+                text-align: left;
+            }
+            .meta-item:not(:first-child):before {
+                display: none;
+            }
+            .reels-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+            .footer-title-clean {
+                font-size: 2rem;
+            }
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SECÇÃO DO TOPO (HERO) -->
+    <div class="hero-banner" id="topo">
+        <img src="capa adn.png" alt="Capa adn" class="hero-bg-image">
+
+        <div class="hero-content">
+            <a href="index.html" class="back-link">← Página Inicial</a>
+        </div>
+
+        <header class="project-header hero-content">
+            <span>Estágio na adn Digital Partner</span>
+            <h1>adn</h1>
+        </header>
+    </div>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+        
+        <!-- SECÇÃO SOBRE E METADADOS -->
+        <section class="about-section">
+            <div class="project-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Cliente</span>
+                    <span class="meta-value">adn</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Áreas</span>
+                    <span class="meta-value">Motion Design</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Ano</span>
+                    <span class="meta-value">2026</span>
+                </div>
+            </div>
+
+            <div class="about-text">
+                <h2>Sobre o Projeto</h2>
+                <p>Criação de conteúdos dinâmicos para a adn Digital Partner, destacando diferentes vertentes da comunicação digital da agência através de animações fluidas, visuais marcantes e um ritmo envolvente pensado para cativar o público nas redes sociais.</p>
+            </div>
+        </section>
+
+        <!-- SECÇÃO DE REELS -->
+        <h3 class="section-title">Motion Design</h3>
+        <section class="reels-grid">
+            
+            <!-- Reel 1 -->
+            <div class="reel-card">
+                <img src="projeto3.png" alt="Reel 1" class="reel-image">
+                <a href="https://www.instagram.com/p/DankSGFknMl/" target="_blank" rel="noopener noreferrer" class="btn-view-project">Ver projeto</a>
+            </div>
+
+            <!-- Reel 2 -->
+            <div class="reel-card">
+                <img src="p2.png" alt="Reel 2" class="reel-image">
+                <a href="https://www.instagram.com/p/DeY5RZMgFlm/" target="_blank" rel="noopener noreferrer" class="btn-view-project">Ver projeto</a>
+            </div>
+        </section>
+        
+    </main>
+    
+    <!-- RODAPÉ DE TRANSIÇÃO (TEXTO EM CIMA, BOTÃO EMBAIXO) -->
+    <footer class="next-project-footer-clean">
+        <a href="InBruto.html" class="next-project-link-clean">
+            <span class="footer-subtitle-clean">PRÓXIMO PROJETO</span>
+            <h2 class="footer-title-clean" id="footerTitle">InBruto</h2>
+            <div class="arrow-circle-clean" id="arrowCircle">
+                <span class="arrow-icon-clean">→</span>
+            </div>
+        </a>
+    </footer>
+
+    <!-- BOTÃO FIXO "VOLTAR AO TOPO" -->
+    <a href="#topo" class="back-to-top" id="backToTopBtn">↑</a>
+
+    <!-- SCRIPTS DE FUNCIONALIDADE -->
+    <script>
+        const backToTopButton = document.getElementById('backToTopBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+
+        // Efeito hover direcionado para o título quando o rato passa na seta
+        const arrowCircle = document.getElementById('arrowCircle');
+        const footerTitle = document.getElementById('footerTitle');
+
+        arrowCircle.addEventListener('mouseenter', () => {
+            footerTitle.classList.add('hovered');
+        });
+
+        arrowCircle.addEventListener('mouseleave', () => {
+            footerTitle.classList.remove('hovered');
+        });
+    </script>
+
+</body>
+</html>

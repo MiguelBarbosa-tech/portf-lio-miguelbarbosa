@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre — Miguel Barbosa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #0b0b0b;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* LINHAS DIVISÓRIAS MAIS COMPACTAS */
+        .section-divider {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin: 45px 0;
+            width: 100%;
+        }
+
+        /* LOGÓTIPO ANIMADO */
+        .logo-reveal-box {
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+            max-width: 220px;
+            z-index: 1003;
+        }
+
+        .logo-reveal-box .logo-text {
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            font-size: 1rem;
+            color: #ffffff;
+            clip-path: inset(0 100% 0 0);
+            animation: revealTextMask 1.4s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .logo-reveal-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -40%;
+            width: 40%; 
+            height: 100%;
+            background-color: #ffffff;
+            z-index: 2;
+            animation: slideBlockSlow 1.4s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+        }
+
+        @keyframes slideBlockSlow {
+            0% { left: -40%; }
+            100% { left: 140%; }
+        }
+
+        @keyframes revealTextMask {
+            0% { clip-path: inset(0 100% 0 0); }
+            100% { clip-path: inset(0 0 0 0); }
+        }
+
+        /* ANIMAÇÕES DE ENTRADA */
+        .reveal {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-box {
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+            text-align: left;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .reveal-box .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 0;
+            opacity: 1;
+            clip-path: inset(0 100% 0 0);
+            line-height: 1.1;
+        }
+
+        .reveal-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -40%;
+            width: 40%; 
+            height: 100%;
+            background-color: #ffffff;
+            z-index: 2;
+            transform: translateX(0);
+        }
+
+        .reveal-box.active::after {
+            animation: slideBlockSlow 1.4s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+        }
+
+        .reveal-box.active .section-title {
+            animation: revealTextMask 1.4s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+        }
+
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        /* MÁQUINA DE ESCREVER */
+        .typing-hello-wrapper {
+            display: inline-block;
+        }
+
+        #typing-hello {
+            border-right: 2px solid #777777;
+            padding-right: 3px;
+            animation: blinkCursor 0.8s infinite step-end;
+        }
+
+        @keyframes blinkCursor {
+            0%, 100% { border-color: transparent; }
+            50% { border-color: #777777; }
+        }
+
+        /* NAVBAR */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 60px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(11, 11, 11, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .navbar nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .navbar nav a {
+            color: #777777;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .navbar nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #ffffff;
+            transition: width 0.3s ease;
+        }
+
+        .navbar nav a:hover::after, .navbar nav a.active::after {
+            width: 100%;
+        }
+
+        .navbar nav a:hover, .navbar nav a.active {
+            color: #ffdd00;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 20px;
+            z-index: 1002;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: #ffdd00;
+            transition: all 0.3s ease;
+        }
+
+        .btn-main {
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-main:hover {
+            background-color: #ffdd00;
+            color: #000000;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 221, 0, 0.25);
+        }
+
+        /* CONTAINER PRINCIPAL */
+        .page-container {
+            padding: 110px 80px 80px 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* HERO SOBRE */
+        .about-hero {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 35px;
+        }
+
+        .about-hero-text .hello-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #777777;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .about-hero-text h1 {
+            font-size: 3.8rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+        }
+
+        .about-hero-text h2 {
+            font-size: 1.35rem;
+            font-weight: 500;
+            color: #aaaaaa;
+            margin-bottom: 20px;
+        }
+
+        .about-hero-text p {
+            color: #999999;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            max-width: 600px;
+        }
+
+        /* IMAGEM */
+        .profile-side-image-wrapper {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: floatImage 6s ease-in-out infinite;
+        }
+
+        @keyframes floatImage {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .profile-side-image-wrapper img {
+            width: 100%;
+            max-width: 450px;
+            height: auto;
+            object-fit: cover;
+            filter: contrast(90%) brightness(100%);
+            -webkit-mask-image: radial-gradient(circle at 50% 45%, rgba(0,0,0,1) 35%, rgba(0,0,0,0) 70%);
+            mask-image: radial-gradient(circle at 50% 45%, rgba(0,0,0,1) 35%, rgba(0,0,0,0) 70%);
+        }
+
+        /* SECÇÕES */
+        .section-block {
+            margin-bottom: 45px;
+        }
+
+        .bio-content-fluid {
+            max-width: 1000px;
+        }
+
+        .bio-content-fluid p {
+            color: #b0b0b0;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 18px;
+        }
+
+        .bio-content-fluid p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 360° AUDIOVISUAL */
+        .audiovisual-360-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .audiovisual-360-grid h2 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -1.5px;
+            color: #ffffff;
+        }
+
+        .audiovisual-360-grid p {
+            color: #b0b0b0;
+            font-size: 1.1rem;
+            line-height: 1.75;
+            margin-bottom: 16px;
+        }
+
+        .audiovisual-360-grid p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* MARQUEE FERRAMENTAS */
+        .tools-marquee-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            padding: 5px 0;
+            margin-top: 20px;
+        }
+
+        .tools-track {
+            display: flex;
+            gap: 50px;
+            width: max-content;
+            animation: scrollMarquee 25s linear infinite;
+        }
+
+        .tools-marquee-container:hover .tools-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollMarquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 25px)); }
+        }
+
+        .tool-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 10px;
+            min-width: 120px;
+            transition: transform 0.3s ease;
+        }
+
+        .tool-item:hover {
+            transform: translateY(-4px);
+        }
+
+        .tool-item img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            filter: grayscale(90%) contrast(110%);
+            opacity: 0.6;
+            transition: filter 0.4s ease, opacity 0.4s ease, transform 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .tool-item:hover img {
+            filter: grayscale(0%) contrast(100%);
+            opacity: 1;
+        }
+
+        .tool-name {
+            font-size: 0.8rem;
+            color: #777777;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+            width: 100%;
+            text-align: center;
+        }
+
+        .tool-item:hover .tool-name {
+            color: #ffdd00;
+        }
+
+        /* ÁREAS */
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 35px 40px;
+            margin-top: 25px;
+        }
+
+        .area-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+            padding-top: 20px;
+            border-top: 1px solid #ffffff;
+            transition: border-color 0.3s ease;
+        }
+
+        .area-item:hover {
+            border-color: #ffdd00;
+        }
+
+        .area-icon {
+            width: 26px;
+            height: 26px;
+            fill: none;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform 0.3s ease;
+        }
+
+        .area-item:hover .area-icon {
+            transform: scale(1.1);
+        }
+
+        .area-item h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: -0.3px;
+        }
+
+        .area-item p {
+            font-size: 0.95rem;
+            color: #999999;
+            line-height: 1.55;
+        }
+
+        /* BOTÃO TOPO */
+        .back-to-top {
+            position: fixed;
+            bottom: 35px;
+            right: 35px;
+            width: 50px;
+            height: 50px;
+            background-color: #151515;
+            color: #ffdd00;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: #ffdd00;
+            color: #000000;
+            transform: translateY(-3px);
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 1200px) {
+            .page-container {
+                padding: 110px 40px 60px 40px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .areas-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .audiovisual-360-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .navbar {
+                padding: 20px 25px;
+            }
+            .navbar nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background-color: rgba(11, 11, 11, 0.98);
+                backdrop-filter: blur(15px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 25px;
+                transform: none;
+                left: auto;
+                transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                z-index: 1001;
+            }
+            .navbar nav.active {
+                right: 0;
+            }
+            .navbar nav a {
+                font-size: 1.4rem;
+            }
+            .menu-toggle {
+                display: flex;
+            }
+            .page-container {
+                padding: 100px 20px 50px 20px;
+            }
+            .about-hero {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                margin-bottom: 40px;
+            }
+            .about-hero-text h1, .audiovisual-360-grid h2, .reveal-box .section-title {
+                font-size: 2.4rem;
+            }
+            .section-divider {
+                margin: 40px 0;
+            }
+            .section-block {
+                margin-bottom: 40px;
+            }
+            .areas-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body id="topo">
+
+    <header class="navbar">
+        <div class="logo-reveal-box">
+            <span class="logo-text">MIGUEL BARBOSA</span>
+        </div>
+        
+        <nav id="navMenu">
+            <a href="index.html">Portfólio</a>
+            <a href="sobre.html" class="active">Sobre</a>
+        </nav>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <main class="page-container">
+        
+        <!-- HERO SOBRE -->
+        <section class="about-hero">
+            <div class="about-hero-text reveal">
+                <span class="hello-label">
+                    <span class="typing-hello-wrapper"><span id="typing-hello"></span></span>
+                </span>
+                <h1 style="color: #ffffff;">Sou o <span style="color: #ffdd00;">Miguel Barbosa</span></h1>
+                <h2>Motion Designer & Criador Visual</h2>
+                <p>Criador de conteúdo visual que comunica, capta atenção e transforma ideias em experiências digitais.</p>
+                <!-- BOTÃO REDIRECIONA DIRETO PARA OS PROJETOS (#projetos) -->
+                <a href="index.html#projetos" class="btn-main">Ver projetos</a>
+            </div>
+
+            <div class="profile-side-image-wrapper reveal delay-1">
+                <img src="Eu.png" alt="Miguel Barbosa" onerror="this.onerror=null;this.src='https://placehold.co/540x620/1a1a1a/ffffff?text=Miguel+Barbosa';">
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- SOBRE MIM -->
+        <section class="section-block reveal">
+            <div class="reveal-box">
+                <h2 class="section-title">Sobre mim</h2>
+            </div>
+            <div class="bio-content-fluid">
+                <p>Formado em Audiovisual Digital, estou atualmente a desenvolver o meu percurso profissional na área da comunicação visual, com interesse na criação e edição de conteúdos. Ao longo da minha formação, adquiri conhecimentos em diversas áreas, desde a captação de imagem e edição de vídeo até ao motion design, à animação 3D e à criação de vídeos com recurso à inteligência artificial.</p>
+                <p>Procuro continuar a desenvolver projetos que combinem criatividade, qualidade técnica e uma comunicação visual eficaz, adaptando cada abordagem aos objetivos e às necessidades de cada trabalho.</p>
+                <p>Pretendo aprofundar as minhas competências, explorar novas ferramentas e adquirir experiência em diferentes projetos, de forma a com uma abordagem criativa, versátil e orientada para resultados.</p>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- SECÇÃO 360° AUDIOVISUAL -->
+        <section class="section-block reveal">
+            <div class="audiovisual-360-grid">
+                <div>
+                    <h2>360°<br><span style="color: #ffdd00;">AUDIOVISUAL</span></h2>
+                </div>
+                <div>
+                    <p>Acredito que cada ideia tem o potencial de se transformar em algo único. Através de uma abordagem audiovisual 360º, cruzo criatividade, tecnologia e diferentes áreas visuais, como Motion Design, Edição de Vídeo, Fotografia, Captação e Design Gráfico, explorando também as possibilidades da Inteligência Artificial.</p>
+                    <p>Desde o primeiro conceito até ao resultado final, procuro dar vida a ideias, criando conteúdos visuais com identidade, propósito e impacto, adaptados aos objetivos de cada projeto e às plataformas onde ganham vida.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- CAIXA DE FERRAMENTAS -->
+        <section class="section-block reveal">
+            <div class="reveal-box">
+                <h2 class="section-title">A minha caixa de ferramentas</h2>
+            </div>
+
+            <div class="tools-marquee-container">
+                <div class="tools-track">
+                    <div class="tool-item"><img src="After effects.png" alt="After Effects"><div class="tool-name">After Effects</div></div>
+                    <div class="tool-item"><img src="Premiere Pro.png" alt="Premiere Pro"><div class="tool-name">Premiere Pro</div></div>
+                    <div class="tool-item"><img src="Photoshop.png" alt="Photoshop"><div class="tool-name">Photoshop</div></div>
+                    <div class="tool-item"><img src="Illustrator.png" alt="Illustrator"><div class="tool-name">Illustrator</div></div>
+                    <div class="tool-item"><img src="Lightroom.png" alt="Lightroom"><div class="tool-name">Lightroom</div></div>
+                    <div class="tool-item"><img src="Adobe Xd.png" alt="Adobe XD"><div class="tool-name">Adobe XD</div></div>
+                    <!-- Duplicado para efeito marquee infinito -->
+                    <div class="tool-item"><img src="After effects.png" alt="After Effects"><div class="tool-name">After Effects</div></div>
+                    <div class="tool-item"><img src="Premiere Pro.png" alt="Premiere Pro"><div class="tool-name">Premiere Pro</div></div>
+                    <div class="tool-item"><img src="Photoshop.png" alt="Photoshop"><div class="tool-name">Photoshop</div></div>
+                    <div class="tool-item"><img src="Illustrator.png" alt="Illustrator"><div class="tool-name">Illustrator</div></div>
+                    <div class="tool-item"><img src="Lightroom.png" alt="Lightroom"><div class="tool-name">Lightroom</div></div>
+                    <div class="tool-item"><img src="Adobe Xd.png" alt="Adobe XD"><div class="tool-name">Adobe XD</div></div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- ÁREAS -->
+        <section class="section-block">
+            <div class="reveal-box">
+                <h2 class="section-title">Áreas</h2>
+            </div>
+
+            <div class="areas-grid">
+                <!-- 1. Vídeo & Edição -->
+                <div class="area-item reveal delay-1">
+                    <svg class="area-icon" style="stroke: #ffdd00;" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    <h3>Vídeo & Edição</h3>
+                    <p>Reels, conteúdos digitais, vídeos promocionais, institucionais e edição para redes sociais.</p>
+                </div>
+                <!-- 2. Motion Design -->
+                <div class="area-item reveal delay-2">
+                    <svg class="area-icon" style="stroke: #ffdd00;" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                    <h3>Motion Design</h3>
+                    <p>Animação gráfica, títulos, identidade em movimento e conteúdos digitais.</p>
+                </div>
+                <!-- 3. Fotografia & Captação -->
+                <div class="area-item reveal delay-3">
+                    <svg class="area-icon" style="stroke: #ffdd00;" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                    <h3>Fotografia & Captação</h3>
+                    <p>Captação de imagem, eventos, conteúdos para marcas e criação de material visual.</p>
+                </div>
+                <!-- 4. Design Gráfico -->
+                <div class="area-item reveal delay-1">
+                    <svg class="area-icon" style="stroke: #ffdd00;" viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+                    <h3>Design Gráfico</h3>
+                    <p>Peças para redes sociais, campanhas, comunicação visual e suportes digitais.</p>
+                </div>
+                <!-- 5. Inteligência Artificial -->
+                <div class="area-item reveal delay-2">
+                    <svg class="area-icon" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="#ffdd00" stroke-width="1.8" stroke-linecap="round"></path>
+                        <path d="M16 3c.6 2.3 2.1 3.8 4.4 4.4-2.3.6-3.8 2.1-4.4 4.4-.6-2.3-2.1-3.8-4.4-4.4 2.3-.6 3.8-2.1 4.4-4.4z" fill="#ffdd00"></path>
+                        <path d="M8 12c.3 1.1 1 1.8 2.1 2.1-1.1.3-1.8 1-2.1 2.1-.3-1.1-1-1.8-2.1-2.1 1.1-.3 1.8-1 2.1-2.1z" fill="#ffdd00"></path>
+                    </svg>
+                    <h3>Inteligência Artificial</h3>
+                    <p>IA aplicada ao processo criativo, desenvolvimento visual e otimização de produção.</p>
+                </div>
+                <!-- 6. Conteúdo Digital -->
+                <div class="area-item reveal delay-3">
+                    <svg class="area-icon" style="stroke: #ffdd00;" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                    <h3>Conteúdo Digital</h3>
+                    <p>Conceito, produção e adaptação de conteúdos para diferentes plataformas e formatos.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- BOTÃO FIXO "VOLTAR AO TOPO" -->
+    <a href="#topo" class="back-to-top" id="backToTopBtn">↑</a>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            menuToggle.classList.toggle('open');
+        });
+
+        document.querySelectorAll('#navMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                menuToggle.classList.remove('open');
+            });
+        });
+
+        const backToTopButton = document.getElementById('backToTopBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+
+        const greetings = ["HELLO!", "OLÁ!", "BONJOUR!", "HOLA!", "CIAO!"];
+        let gIndex = 0;
+
+        function typeHello() {
+            let letters = greetings[gIndex].split("");
+            var loopType = function() {
+                if (letters.length > 0) {
+                    document.getElementById('typing-hello').innerHTML += letters.shift();
+                } else {
+                    setTimeout(deleteHello, 1500);
+                    return;
+                }
+                setTimeout(loopType, 75);
+            };
+            loopType();
+        }
+
+        function deleteHello() {
+            let letters = greetings[gIndex].split("");
+            var loopDelete = function() {
+                if (letters.length > 0) {
+                    letters.pop();
+                    document.getElementById('typing-hello').innerHTML = letters.join("");
+                } else {
+                    gIndex = (gIndex + 1) % greetings.length;
+                    setTimeout(typeHello, 300);
+                    return;
+                }
+                setTimeout(loopDelete, 40);
+            };
+            loopDelete();
+        }
+
+        setTimeout(typeHello, 500);
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.reveal').forEach(element => {
+            observer.observe(element);
+        });
+
+        const titleBoxObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.reveal-box').forEach(element => {
+            titleBoxObserver.observe(element);
+        });
+    </script>
+</body>
+</html>
