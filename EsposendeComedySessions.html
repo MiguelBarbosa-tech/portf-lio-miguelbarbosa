@@ -470,6 +470,16 @@
             .meta-item:not(:first-child):before {
                 display: none;
             }
+            
+            /* Galeria em 2 colunas no telemóvel */
+            .media-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            .portfolio-img {
+                height: 180px; /* Altura ajustada para grelha de 2 colunas */
+            }
+
             .footer-title-clean {
                 font-size: 2rem;
             }
@@ -542,7 +552,7 @@
                 <source src="Hugo Soares.mp4" type="video/mp4">
             </video>
             <video class="reel-video" autoplay muted loop playsinline controls>
-                <source src="Rui Lourenço.mp4" type="video/mp4">
+                <source src="Rui Lourenço.mp4" type="video/mp4">
             </video>
              <video class="reel-video" autoplay muted loop playsinline controls>
                 <source src="Nuno Lacerda.mp4" type="video/mp4">
