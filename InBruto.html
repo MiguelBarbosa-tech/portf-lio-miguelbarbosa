@@ -173,6 +173,7 @@
         .section-title {
             font-size: 1.3rem;
             margin-bottom: 35px;
+            margin-top: 60px;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: #777777;
@@ -183,6 +184,10 @@
             max-width: 1200px;
             margin-left: auto;
             margin-right: auto;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
         }
         
         /* ==========================================
@@ -223,6 +228,43 @@
             border-color: #ffdd00;
         }
 
+        /* ==========================================
+           5. PROJETO HORIZONTAL NOVO
+           ========================================== */
+        .horizontal-project-section {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .horizontal-card {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .horizontal-image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            background-color: #141414;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .horizontal-image:hover {
+            transform: translateY(-5px);
+            border-color: #ffdd00;
+        }
+
         /* BOTÃO "VER PROJETO" */
         .btn-view-project {
             display: inline-block;
@@ -248,7 +290,7 @@
         }
 
         /* ==========================================
-           5. RODAPÉ DE TRANSIÇÃO (PRÓXIMO PROJETO)
+           6. RODAPÉ DE TRANSIÇÃO (PRÓXIMO PROJETO)
            ========================================== */
         .next-project-footer-clean {
             width: 100%;
@@ -320,7 +362,7 @@
         }
 
         /* ==========================================
-           6. BOTÃO FIXO "VOLTAR AO TOPO"
+           7. BOTÃO FIXO "VOLTAR AO TOPO"
            ========================================== */
         .back-to-top {
             position: fixed;
@@ -356,7 +398,7 @@
         }
 
         /* ==========================================
-           7. RESPONSIVIDADE (TELEMÓVEIS E TABLETS)
+           8. RESPONSIVIDADE (TELEMÓVEIS E TABLETS)
            ========================================== */
         @media (max-width: 900px) {
             .reels-grid {
@@ -447,7 +489,7 @@
             </div>
         </section>
 
-        <!-- SECÇÃO DE REELS -->
+        <!-- SECÇÃO DE REELS (VERTICAL) -->
         <h3 class="section-title">Motion Design</h3>
         <section class="reels-grid">
             <!-- Reel 3 -->
@@ -460,6 +502,17 @@
             <div class="reel-card">
                 <img src="p4.png" alt="Reel 4" class="reel-image">
                 <a href="https://www.instagram.com/p/Dd5-IXBIr1x/" target="_blank" rel="noopener noreferrer" class="btn-view-project">Ver projeto</a>
+            </div>
+        </section>
+        
+        <!-- NOVO PROJETO HORIZONTAL -->
+        <h3 class="section-title">Design Visual</h3>
+        <section class="horizontal-project-section">
+            <div class="horizontal-card">
+                <!-- Substitua 'sua-imagem-horizontal.png' pelo caminho da imagem -->
+                <img src="yt" alt="Novo Projeto" class="horizontal-image">
+                <!-- Substitua '#' pelo link do projeto -->
+                <a href="https://www.youtube.com/watch?v=P0mzS78ZwXg" target="_blank" rel="noopener noreferrer" class="btn-view-project">Ver projeto</a>
             </div>
         </section>
         
