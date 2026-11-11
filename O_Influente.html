@@ -184,6 +184,10 @@
             margin-left: auto;
             margin-right: auto;
         }
+
+        .section-title:not(:first-of-type) {
+            margin-top: 60px;
+        }
         
         /* ==========================================
            4. GRELHA DE REELS (IMAGENS + BOTÕES CENTRADOS)
@@ -223,6 +227,43 @@
             border-color: #ffdd00;
         }
 
+        /* ==========================================
+           5. PROJETO HORIZONTAL (TAMANHO CONTROLADO)
+           ========================================== */
+        .horizontal-project-section {
+            width: 100%;
+            max-width: 800px; /* Controla a largura máxima para não ficar gigante */
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .horizontal-card {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .horizontal-image {
+            width: 100%;
+            max-height: 450px; /* Limita a altura máxima */
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            background-color: #141414;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .horizontal-image:hover {
+            transform: translateY(-5px);
+            border-color: #ffdd00;
+        }
+
         /* BOTÃO "VER PROJETO" */
         .btn-view-project {
             display: inline-block;
@@ -248,7 +289,7 @@
         }
 
         /* ==========================================
-           5. RODAPÉ DE TRANSIÇÃO (PRÓXIMO PROJETO)
+           6. RODAPÉ DE TRANSIÇÃO (PRÓXIMO PROJETO)
            ========================================== */
         .next-project-footer-clean {
             width: 100%;
@@ -280,7 +321,7 @@
         }
 
         .footer-title-clean {
-            color: #ffffff; /* Texto branco por defeito */
+            color: #ffffff;
             font-size: 2.8rem;
             font-weight: 700;
             letter-spacing: -1px;
@@ -290,7 +331,7 @@
         }
 
         .footer-title-clean.hovered {
-            color: #ffdd00; /* Fica amarelo apenas no hover da seta */
+            color: #ffdd00;
         }
 
         .arrow-circle-clean {
@@ -320,7 +361,7 @@
         }
 
         /* ==========================================
-           6. BOTÃO FIXO "VOLTAR AO TOPO"
+           7. BOTÃO FIXO "VOLTAR AO TOPO"
            ========================================== */
         .back-to-top {
             position: fixed;
@@ -356,11 +397,14 @@
         }
 
         /* ==========================================
-           7. RESPONSIVIDADE (TELEMÓVEIS E TABLETS)
+           8. RESPONSIVIDADE (TELEMÓVEIS E TABLETS)
            ========================================== */
         @media (max-width: 900px) {
             .reels-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+            .horizontal-project-section {
+                max-width: 100%;
             }
         }
 
@@ -455,15 +499,14 @@
                 <img src="p5.png" alt="Reel 5" class="reel-image">
                 <a href="https://www.instagram.com/p/DeMxiTUgnwW/" target="_blank" rel="noopener noreferrer" class="btn-view-project">Ver projeto</a>
             </div>
-            
+        </section>
+
+        <!-- PROJETO HORIZONTAL (YOUTUBE) -->
         <section class="horizontal-project-section">
             <div class="horizontal-card">
-                <!-- Substitua 'sua-imagem-horizontal.png' pelo caminho da imagem -->
-                <img src="influente-yt.png" alt="Novo Projeto" class="horizontal-image">
-                <!-- Substitua '#' pelo link do projeto -->
+                <img src="influente-yt.png" alt="Vídeo YouTube O Influente" class="horizontal-image">
                 <a href="https://www.youtube.com/watch?v=rvp8W1IAMdU" target="_blank" rel="noopener noreferrer" class="btn-view-project">Ver projeto</a>
             </div>
-        </section>
         </section>
         
     </main>
