@@ -868,15 +868,21 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             const waves = [
-                { speed: 0.015, height: 45, frequency: 0.003, yOffset: 0.35, alpha: 0.6, color: '240, 240, 240' },
-                { speed: -0.02,  height: 60, frequency: 0.0025, yOffset: 0.5,  alpha: 0.8, color: '255, 221, 0' },
-                { speed: 0.012, height: 35, frequency: 0.004, yOffset: 0.65, alpha: 0.5, color: '240, 240, 240' }
+                { speed: 0.015, height: 45, frequency: 0.003, yOffset: 0.35, alpha: 0.55, color: '240, 240, 240', lineWidth: 2, glow: false },
+                { speed: -0.02,  height: 60, frequency: 0.0025, yOffset: 0.5,  alpha: 1,    color: '255, 221, 0',   lineWidth: 4.5, glow: true },
+                { speed: 0.012, height: 35, frequency: 0.004, yOffset: 0.65, alpha: 0.45, color: '240, 240, 240', lineWidth: 2, glow: false }
             ];
 
             waves.forEach(wave => {
+                ctx.save();
                 ctx.beginPath();
-                ctx.lineWidth = 2;
+                ctx.lineWidth = wave.lineWidth;
                 ctx.strokeStyle = `rgba(${wave.color}, ${wave.alpha})`;
+
+                if (wave.glow) {
+                    ctx.shadowColor = 'rgba(255, 221, 0, 0.95)';
+                    ctx.shadowBlur = 24;
+                }
 
                 for (let x = 0; x <= canvas.width; x += 5) {
                     let y = canvas.height * wave.yOffset + 
@@ -890,6 +896,7 @@
                     }
                 }
                 ctx.stroke();
+                ctx.restore();
             });
 
             step += 1;
@@ -1014,4 +1021,3 @@
     </script>
 </body>
 </html>
-```[cite: 1]
